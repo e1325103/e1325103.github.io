@@ -1,0 +1,19 @@
+﻿Der Buildvorgang wurde am 20.08.2017 10:17:23 gestartet.
+     1>Projekt "C:\Users\nicol\Dropbox\Projects\MandelbrotJuliaFractals\vc2013\MandelbrotJuliaFractals.vcxproj" auf Knoten "2", Build Ziel(e).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I..\include /I..\..\..\..\Desktop\cinder_0.9.1_vc2013\include /ZI /nologo /W3 /WX- /MP /Od /Oy- /D WIN32 /D _WIN32_WINNT=0x0601 /D _WINDOWS /D NOMINMAX /D _DEBUG /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"C:\Users\nicol\Dropbox\Projects\MandelbrotJuliaFractals\vc2013\build\Win32\Debug\intermediate\\" /Fd"C:\Users\nicol\Dropbox\Projects\MandelbrotJuliaFractals\vc2013\build\Win32\Debug\intermediate\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt ..\src\MandelbrotJuliaFractalsApp.cpp
+         MandelbrotJuliaFractalsApp.cpp
+     1>c:\users\nicol\dropbox\projects\mandelbrotjuliafractals\src\mandelbrotjuliafractalsapp.cpp(56): warning C4305: 'Initialisierung': Verkürzung von 'double' in 'float'
+     1>c:\users\nicol\dropbox\projects\mandelbrotjuliafractals\src\mandelbrotjuliafractalsapp.cpp(57): warning C4244: 'Initialisierung': Konvertierung von 'double' in 'float', möglicher Datenverlust
+     1>c:\users\nicol\dropbox\projects\mandelbrotjuliafractals\src\mandelbrotjuliafractalsapp.cpp(58): warning C4244: 'Initialisierung': Konvertierung von 'double' in 'float', möglicher Datenverlust
+       ResourceCompile:
+         C:\Program Files (x86)\Windows Kits\8.1\bin\x86\rc.exe /D _UNICODE /D UNICODE /l"0x0409" /I..\..\..\..\Desktop\cinder_0.9.1_vc2013\include /I..\include /nologo /fo"C:\Users\nicol\Dropbox\Projects\MandelbrotJuliaFractals\vc2013\build\Win32\Debug\intermediate\Resources.res" Resources.rc 
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\nicol\Dropbox\Projects\MandelbrotJuliaFractals\vc2013\build\Win32\Debug\MandelbrotJuliaFractals.exe" /INCREMENTAL /NOLOGO /LIBPATH:..\..\..\..\Desktop\cinder_0.9.1_vc2013\lib\msw\x86 /LIBPATH:..\..\..\..\Desktop\cinder_0.9.1_vc2013\lib\msw\x86\Debug\v120\ cinder.lib OpenGL32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /NODEFAULTLIB:LIBCMT /NODEFAULTLIB:LIBCPMT /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\nicol\Dropbox\Projects\MandelbrotJuliaFractals\vc2013\build\Win32\Debug\MandelbrotJuliaFractals.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE:NO /IMPLIB:"C:\Users\nicol\Dropbox\Projects\MandelbrotJuliaFractals\vc2013\build\Win32\Debug\MandelbrotJuliaFractals.lib" /MACHINE:X86 C:\Users\nicol\Dropbox\Projects\MandelbrotJuliaFractals\vc2013\build\Win32\Debug\intermediate\Resources.res
+         C:\Users\nicol\Dropbox\Projects\MandelbrotJuliaFractals\vc2013\build\Win32\Debug\intermediate\MandelbrotJuliaFractalsApp.obj
+         MandelbrotJuliaFractals.vcxproj -> C:\Users\nicol\Dropbox\Projects\MandelbrotJuliaFractals\vc2013\build\Win32\Debug\MandelbrotJuliaFractals.exe
+     1>Die Erstellung des Projekts "C:\Users\nicol\Dropbox\Projects\MandelbrotJuliaFractals\vc2013\MandelbrotJuliaFractals.vcxproj" ist abgeschlossen, Build Ziel(e).
+
+Build erfolgreich.
+
+Verstrichene Zeit 00:00:05.69
