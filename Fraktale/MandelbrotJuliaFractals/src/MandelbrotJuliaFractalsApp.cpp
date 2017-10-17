@@ -35,7 +35,7 @@ public:
 	vec3 v = vec3(1, 0, 0);
 	int iter = 100;
 	float scale = 2.2f;
-	vec2 center = vec2(0.7f, 0.0f);
+	dvec2 center = dvec2(0.7, 0.0);
 
 	InterfaceGlRef mParams;
 	bool showJulia = true;
@@ -72,16 +72,11 @@ void MandelbrotJuliaFractalsApp::setup()
 	auto rectMGlsl = gl::GlslProg::create(vert, fragM);
 	auto rectJGlsl = gl::GlslProg::create(vert, fragJ);
 
-	/*auto rect = geom::Rect().texCoords(
+	auto rect = geom::Rect().texCoords(
 		vec2(0, 0),
 		vec2(1, 0),
 		vec2(1, 1),
-		vec2(0, 1));*/
-	auto rect = geom::Rect().texCoords(
-		vec2(0.5, 0),
-		vec2(1, 0),
-		vec2(1, 0.5),
-		vec2(0.5, 0.5));
+		vec2(0, 1));
 
 	mRectM = gl::Batch::create(rect, rectMGlsl);
 	mRectJ = gl::Batch::create(rect, rectJGlsl);
@@ -91,7 +86,14 @@ void MandelbrotJuliaFractalsApp::setup()
 	float cy = (cos(sin(t / 10) * 10) + sin(t * 2.0) / 4.0 + cos(t * 3.0) / 6.0) * 0.8;
 
 	mRectM->getGlslProg()->uniform("tex", 0);
-	mRectM->getGlslProg()->uniform("center", center);
+
+	vec2 centerX = vec2((float)center.x, 0);
+	centerX.y = (float)(center.x - (double)centerX.x);
+	mRectM->getGlslProg()->uniform("centerX", centerX);
+	vec2 centerY = vec2((float)center.y, 0);
+	centerY.y = (float)(center.y - (double)centerY.x);
+	mRectM->getGlslProg()->uniform("centerY", centerY);
+
 	mRectM->getGlslProg()->uniform("scale", scale);
 	mRectM->getGlslProg()->uniform("iter", iter);
 
@@ -167,20 +169,26 @@ void MandelbrotJuliaFractalsApp::keyDown(KeyEvent event) {
 		scale *= 2.0f;
 	}
 	if (event.getChar() == 'a') {
-		center += vec2(0.1 * scale, 0);
+		center += dvec2(0.1 * scale, 0);
 	}
 	else if (event.getChar() == 'd') {
-		center += vec2(-0.1 * scale, 0);
+		center += dvec2(-0.1 * scale, 0);
 	}
 	else if (event.getChar() == 'w') {
-		center += vec2(0, 0.1 * scale);
+		center += dvec2(0, 0.1 * scale);
 	}
 	else if (event.getChar() == 's') {
-		center += vec2(0, -0.1 * scale);
+		center += dvec2(0, -0.1 * scale);
 	}
 	mRectM->getGlslProg()->uniform("iter", iter);
 	mRectM->getGlslProg()->uniform("scale", scale);
-	mRectM->getGlslProg()->uniform("center", center);
+
+	vec2 centerX = vec2((float)center.x, 0);
+	centerX.y = (float)(center.x - (double)centerX.x);
+	mRectM->getGlslProg()->uniform("centerX", centerX);
+	vec2 centerY = vec2((float)center.y, 0);
+	centerY.y = (float)(center.y - (double)centerY.x);
+	mRectM->getGlslProg()->uniform("centerY", centerY);
 }
 
 void MandelbrotJuliaFractalsApp::update()
@@ -211,7 +219,16 @@ void MandelbrotJuliaFractalsApp::update()
 	}
 	mRectM->getGlslProg()->uniform("iter", iter);
 	mRectM->getGlslProg()->uniform("scale", scale);
-	mRectM->getGlslProg()->uniform("center", center);
+
+	vec2 centerX = vec2((float)center.x, 0);
+	centerX.y = (float)(center.x - (double)centerX.x);
+	mRectM->getGlslProg()->uniform("centerX", centerX);
+	vec2 centerY = vec2((float)center.y, 0);
+	centerY.y = (float)(center.y - (double)centerY.x);
+	mRectM->getGlslProg()->uniform("centerY", centerY);
+	if (centerY.y > 0) {
+		std::cout << centerY.y;
+	}
 }
 
 
