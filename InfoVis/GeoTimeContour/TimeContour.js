@@ -4,13 +4,6 @@ var rendererTime = [];
 // 2D draw area, with margin for axis labels
 var margin = { top: 20, right: 20, bottom: 20, left: 20 };
 
-// initial value ranges for KDE
-// changed via panning and zooming
-var minX = 0;
-var maxX = 365;
-var minY = 0;
-var maxY = 1;
-
 // related to threejs
 var dataTexture;
 var material;
@@ -19,19 +12,19 @@ var geometry, mesh;
 
 var done = false;
 
-function generateTimeRenderer(index, year, width, height) {
+function generateRenderer(index, year, width, height) {
 
     width = width - margin.left - margin.right;
     height = height - margin.top - margin.bottom;
 
     // linear mapping of X random variable points of interest to draw area x axis
     var x = d3.scale.linear()
-        .domain([minX, maxX])
+        .domain([0, 365])
         .range([0, width]);
 
     // linear mapping of Y random variable points of interest to draw area y axis
     var y = d3.scale.linear()
-        .domain([minY, maxY])
+        .domain([0, 1])
         .range([height, 0]);
 
     // svg container for axes
@@ -90,14 +83,24 @@ function generateTimeRenderer(index, year, width, height) {
         fragmentShader: document.getElementById('fragmentShader').textContent
     });
 
-    d3.csv("Year/" + ("" + year) + ".csv", function (error, data) {
+    var filePath = "Year/" + ("" + year) + ".csv";
+    var dataWidth = 959;
+    var dataHeight = 37;
+
+    if (index < 0) {
+        filePath = "Day/2016_20.csv";
+        dataWidth = 152;
+        dataHeight = 137;
+    }
+
+    d3.csv(filePath, function (error, data) {
         var textData = [];
 
-        for (var i = 0; i < (959 * 37); i++) {
+        for (var i = 0; i < (dataWidth * dataHeight); i++) {
             textData.push(+data[i].V);
         }
 
-        dataTexture = new THREE.DataTexture(new Float32Array(textData), 959, 37, THREE.LuminanceFormat, THREE.FloatType);
+        dataTexture = new THREE.DataTexture(new Float32Array(textData), dataWidth, dataHeight, THREE.LuminanceFormat, THREE.FloatType);
         dataTexture.wrapS = THREE.ClampToEdgeWrapping;
         dataTexture.wrapT = THREE.ClampToEdgeWrapping;
         dataTexture.magFilter = THREE.LinearFilter;
@@ -114,7 +117,11 @@ function generateTimeRenderer(index, year, width, height) {
         material.uniforms = uniform;
         material.needsUpdate = true;
         mesh.needsUpdate = true;
-        rendererTime[index].render(scene, camera);
+        if (index >= 0) {
+            rendererTime[index].render(scene, camera);
+        } else {
+            rendererSpace.render(scene, camera);
+        }
         console.log("Load Complete");
         done = true;
     });
@@ -134,22 +141,22 @@ function generateTimeRenderer(index, year, width, height) {
     var renderer = new THREE.WebGLRenderer();
     renderer.setSize(width, height);
 
-    // renderer placement
-    //renderer.domElement.style.position = "absolute";
-    //renderer.domElement.style.top = (margin.top) + "px";
-    //renderer.domElement.style.left = (margin.left) + "px";
     renderer.domElement.style.zIndex = "1";
 
-    rendererTime[index] = renderer;
+    if (index >= 0) {
+        rendererTime[index] = renderer;
+    } else {
+        rendererSpace = renderer;
+    }
 }
 
 function init() {
     for (var i = 0; i < 3; i++) {
-        generateTimeRenderer(i, 2014 + i, $("#timeContourDiv" + i).width() * 1.22, 400);
-       // rendererTime.push(r);
+        generateRenderer(i, 2014 + i, $("#timeContourDiv" + i).width() * 1.22, 400);
         document.getElementById("timeContourDiv" + i).appendChild(rendererTime[i].domElement);
     }
-    //animate();
+    generateRenderer(-1, 2014, $("#spaceContourDiv").width(), $("#spaceContourDiv").width());
+    document.getElementById("spaceContourDiv").appendChild(rendererSpace.domElement);
 }
 
 function update(index) {
