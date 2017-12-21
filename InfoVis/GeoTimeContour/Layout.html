@@ -1,0 +1,132 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>W3.CSS Template</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
+    <style>
+        html, body, h1, h2, h3, h4, h5 {
+            font-family: "Open Sans", sans-serif
+        }
+    </style>
+</head>
+<body class="w3-theme-l5">
+
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="three.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script id="vertexShader" type="x-shader/x-vertex">
+        varying vec2 fUV;
+
+        void main() {
+        fUV = uv;
+        gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(position, 1.0);
+        }
+    </script>
+    <script id="fragmentShader" type="x-shader/x-fragment">
+        uniform sampler2D map;
+
+        varying vec2 fUV;
+
+        void main() {
+        float d = texture2D(map, fUV.yx).x;
+        d = (d - 5.0) / 20.0;
+        vec3 color;
+        if (d < 0.5) {
+        d = d / 0.5;
+        d = floor(10.0 * d + 0.5) / 10.0;
+        color = d * vec3(1.0, 1.0, 1.0) + (1.0 - d) * vec3(0.0, 0.0, 1.0);
+        } else {
+        d = (d - 0.5) / 0.5;
+        d = 1.0 - d;
+        d = floor(10.0 * d + 0.5) / 10.0;
+        color = d * vec3(1.0, 1.0, 1.0) + (1.0 - d) * vec3(1.0, 0.0, 0.0);
+        }
+        gl_FragColor = vec4(color, 1.0);
+        }
+    </script>
+    <script src="TimeContour.js"></script>
+
+    <!-- Page Container -->
+    <div class="w3-container w3-content" style="max-width:1400px;margin-top:20px">
+        <!-- The Grid -->
+        <div class="w3-row">
+            <!-- Left Column -->
+            <div class="w3-col m3">
+                <!-- Profile -->
+                <div class="w3-card w3-round w3-white">
+                    <div class="w3-container">
+
+                    </div>
+                </div>
+                <br>
+                <!-- End Left Column -->
+            </div>
+
+            <!-- Middle Column -->
+            <div class="w3-col m7">
+
+                <div class="w3-row-padding">
+                    <div class="w3-col m12">
+                        <div class="w3-card w3-round w3-white">
+                            <div class="w3-container w3-padding">
+                                <!-- MAIN BOX -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w3-container w3-card w3-white w3-round w3-margin">
+                    <br>
+                    <div class="w3-row-padding" style="margin:0 -16px">
+                        <div class="w3-third" id="timeContourDiv0">
+                        </div>
+                        <div class="w3-third" id="timeContourDiv1">
+                        </div>
+                        <div class="w3-third" id="timeContourDiv2">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- End Middle Column -->
+            </div>
+
+            <!-- Right Column -->
+            <div class="w3-col m2">
+                <div class="w3-card w3-round w3-white w3-center">
+                    <div class="w3-container">
+                    </div>
+                </div>
+                <br>
+
+                <div class="w3-card w3-round w3-white w3-center">
+                    <div class="w3-container">
+                    </div>
+                </div>
+                <br>
+
+                <div class="w3-card w3-round w3-white w3-padding-16 w3-center">
+                    <p>ADS</p>
+                </div>
+                <br>
+
+                <div class="w3-card w3-round w3-white w3-padding-32 w3-center">
+                    <p><i class="fa fa-bug w3-xxlarge"></i></p>
+                </div>
+
+                <!-- End Right Column -->
+            </div>
+
+            <!-- End Grid -->
+        </div>
+
+        <!-- End Page Container -->
+    </div>
+    <br>
+
+</body>
+</html>
