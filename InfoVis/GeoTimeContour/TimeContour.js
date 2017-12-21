@@ -11,6 +11,7 @@ var scene, camera;
 var geometry, mesh;
 
 var done = false;
+var dayIndex = [];
 
 function generateRenderer(index, year, width, height) {
 
@@ -155,15 +156,24 @@ function init() {
         generateRenderer(i, 2014 + i, $("#timeContourDiv" + i).width() * 1.22, 400);
         document.getElementById("timeContourDiv" + i).appendChild(rendererTime[i].domElement);
     }
-    generateRenderer(-1, 2014, $("#spaceContourDiv").width(), $("#spaceContourDiv").width());
+    generateRenderer(-1, 2014, $("#spaceContourDiv").width() * 0.8, $("#spaceContourDiv").width() * 0.8);
     document.getElementById("spaceContourDiv").appendChild(rendererSpace.domElement);
+
+    d3.csv("Day/dayIndex.csv", function (error, data) {
+        for (var i = 0; i < data.length; i++) {
+            if (typeof dayIndex[+data[i].Y] == "undefined") {
+                dayIndex[+data[i].Y] = [];
+            }
+            dayIndex[+data[i].Y].push(+data[i].D);
+        }
+    });
 }
 
 function update(index) {
     d3.csv("Year/2015.csv", function (error, data) {
         var textData = [];
 
-        for (var i = 0; i < (959 * 37) ; i++) {
+        for (var i = 0; i < (959 * 37); i++) {
             textData.push(+data[i].V);
         }
 
