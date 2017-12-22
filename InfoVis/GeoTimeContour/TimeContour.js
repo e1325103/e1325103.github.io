@@ -19,62 +19,72 @@ function generateRenderer(index, year, width, height) {
     height = height - margin.top - margin.bottom;
 
     // linear mapping of X random variable points of interest to draw area x axis
-    var x = d3.scale.linear()
-        .domain([0, 365])
-        .range([0, width]);
+    //var x = d3.scale.linear()
+    //    .domain([0, 365])
+    //    .range([0, width]);
 
-    // linear mapping of Y random variable points of interest to draw area y axis
-    var y = d3.scale.linear()
-        .domain([0, 1])
-        .range([height, 0]);
+    //// linear mapping of Y random variable points of interest to draw area y axis
+    //var y = d3.scale.linear()
+    //    .domain([0, 1])
+    //    .range([height, 0]);
 
-    // svg container for axes
-    d3.select("svg").remove(); // clear existing svg container
-    var svg = d3.select("#timeContourDiv") // return DOM object (related to html element) body
-        .append("svg") // in body object create new svg object and return it
-        .attr("width", width + margin.left + margin.right) // set svg attr and return itself
-        .attr("height", height + margin.top + margin.bottom)
-        .append("g") // in svg object create group of svg shapes and return it
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")"); // etc.
+    //// svg container for axes
+    //d3.select("svg").remove(); // clear existing svg container
+    //var domDiv = "#timeContourDiv" + index;
+    //if (index < 0) {
+    //    domDiv = "#spaceContourDivI";
+    //}
+    //var svg = d3.select(domDiv) // return DOM object (related to html element) body
+    //    .append("svg") // in body object create new svg object and return it
+    //    .attr("width", width + margin.left + margin.right) // set svg attr and return itself
+    //    .attr("height", height + margin.top + margin.bottom)
+    //    .append("g") // in svg object create group of svg shapes and return it
+    //    .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+    //    .on("mousemove", mousemove); // etc.
 
-    // d3 axes
-    var xAxis = d3.svg.axis()
-        .scale(x) // scale axis to range x
-        .orient("bottom");
+    //svg.append("g").append("rect")
+    //    .attr("fill", "pink")
+    //    .attr("height", "100%")
+    //    .attr("width", "100%");
 
-    var yAxis = d3.svg.axis()
-        .scale(y)
-        .orient("left");
+    //// d3 axes
+    //var xAxis = d3.svg.axis()
+    //    .scale(x) // scale axis to range x
+    //    .orient("bottom");
 
-    // draw x axis
-    // note on "call" function:
-    // below xAxis is a function returned by axis().
-    // <whatever>.call(xAxis) is same as xAxis(<whatever>),
-    // i.e. run xAxis() function on <whatever>, here on the svg group g object.
-    svg.append("g") // group of svg shapes
-        .attr("class", "x axis")
-        .attr("transform", "translate(0," + height + ")")
-        .attr("fill", "#888")
-        .call(xAxis)
-        .append("text")
-        .attr("class", "label")
-        .attr("x", width)
-        .attr("y", 42)
-        .style("text-anchor", "end")
-        .text("departure delay (mins)");
+    //var yAxis = d3.svg.axis()
+    //    .scale(y)
+    //    .orient("left");
 
-    // draw y axis
-    svg.append("g")
-        .attr("class", "y axis")
-        .attr("fill", "#888")
-        .call(yAxis)
-        .append("text")
-        .attr("class", "label")
-        .attr("transform", "rotate(-90)")
-        .attr("y", -60)
-        .attr("dy", ".71em")
-        .style("text-anchor", "end")
-        .text("arrival delay (mins)");
+    //// draw x axis
+    //// note on "call" function:
+    //// below xAxis is a function returned by axis().
+    //// <whatever>.call(xAxis) is same as xAxis(<whatever>),
+    //// i.e. run xAxis() function on <whatever>, here on the svg group g object.
+    //svg.append("g") // group of svg shapes
+    //    .attr("class", "x axis")
+    //    .attr("transform", "translate(0," + height + ")")
+    //    .attr("fill", "#888")
+    //    .call(xAxis)
+    //    .append("text")
+    //    .attr("class", "label")
+    //    .attr("x", width)
+    //    .attr("y", 42)
+    //    .style("text-anchor", "end")
+    //    .text("departure delay (mins)");
+
+    //// draw y axis
+    //svg.append("g")
+    //    .attr("class", "y axis")
+    //    .attr("fill", "#888")
+    //    .call(yAxis)
+    //    .append("text")
+    //    .attr("class", "label")
+    //    .attr("transform", "rotate(-90)")
+    //    .attr("y", -60)
+    //    .attr("dy", ".71em")
+    //    .style("text-anchor", "end")
+    //    .text("arrival delay (mins)");
 
     geometry = new THREE.PlaneGeometry(width, height, 1, 1);
 
@@ -142,6 +152,9 @@ function generateRenderer(index, year, width, height) {
     var renderer = new THREE.WebGLRenderer();
     renderer.setSize(width, height);
 
+    //renderer.domElement.style.position = "relative";
+    //renderer.domElement.style.top = (margin.top) + "px";
+    //renderer.domElement.style.left = (margin.left) + "px";
     renderer.domElement.style.zIndex = "1";
 
     if (index >= 0) {
@@ -155,9 +168,13 @@ function init() {
     for (var i = 0; i < 3; i++) {
         generateRenderer(i, 2014 + i, $("#timeContourDiv" + i).width() * 1.22, 400);
         document.getElementById("timeContourDiv" + i).appendChild(rendererTime[i].domElement);
+        rendererTime[i].domElement.id = "timeContourPlot" + i;
+        document.getElementById("timeContourDiv" + i).addEventListener("mousemove", mousemove);
     }
     generateRenderer(-1, 2014, $("#spaceContourDiv").width() * 0.8, $("#spaceContourDiv").width() * 0.8);
     document.getElementById("spaceContourDiv").appendChild(rendererSpace.domElement);
+    rendererSpace.domElement.id = "spaceContourPlot";
+    document.getElementById("spaceContourDiv").addEventListener("mousemove", mousemove);
 
     d3.csv("Day/dayIndex.csv", function (error, data) {
         for (var i = 0; i < data.length; i++) {
@@ -167,6 +184,12 @@ function init() {
             dayIndex[+data[i].Y].push(+data[i].D);
         }
     });
+}
+
+function mousemove(e) {
+    if (e.target.id.endsWith("ContourPlot")) {
+        console.log((e.clientX - $("#" + e.target.id).position().left) / $(("#" + e.target.id).width()));
+    }
 }
 
 function update(index) {
