@@ -187,9 +187,37 @@ function init() {
 }
 
 function mousemove(e) {
-    if (e.target.id.endsWith("ContourPlot")) {
-        console.log((e.clientX - $("#" + e.target.id).position().left) / $(("#" + e.target.id).width()));
+    if (e.target.id.includes("ContourPlot")) {
+        var x = (e.clientX - $("#" + e.target.id).position().left) / $("#" + e.target.id).width();
+        x = Math.min(Math.max(x, 0.0), 1.0);
+        var y = (e.clientY - $("#" + e.target.id).position().top) / $("#" + e.target.id).height();
+        y = 1.0 - Math.min(Math.max(y, 0.0), 1.0);
+
+        console.log("x: " + x + " - y: " + y);
+
+        if (e.target.id.includes("time")) {
+            var index = +e.target.id.substring(e.target.id.length - 1);
+            findNextDate(2014 + index, x * 365);
+        }
     }
+}
+
+function findNextDate(year, day) {
+    var nDay;
+    var pDay;
+    var nYear = year;
+    var pYear = year;
+    for (nDay = 0; nDay < dayIndex[year].length && dayIndex[year][nDay] <= day; nDay++);
+    pDay = nDay - 1;
+    if (nDay == dayIndex[year].length) {
+        pDay = dayIndex[year].length - 1;
+        nDay = 1;
+        nYear = nYear + 1;
+    } else if (nDay == 0) {
+        pDay = dayIndex[year - 1].length - 1;
+        pYear = pYear - 1;
+    }
+    console.log(pYear + " " + dayIndex[pYear][pDay] + " <> " + year + " " + Math.round(day) + " <> " + nYear + " " + dayIndex[nYear][nDay]);
 }
 
 function update(index) {
