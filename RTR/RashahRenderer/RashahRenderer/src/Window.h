@@ -28,6 +28,8 @@ public:
 
 	bool shouldClose();
 	void close();
+
+	void refresh();
 private:
 	int _width = 0;
 	int _height = 0;

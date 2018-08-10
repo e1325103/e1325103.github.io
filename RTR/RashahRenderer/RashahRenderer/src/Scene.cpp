@@ -5,6 +5,10 @@ Scene::Scene()
 
 }
 
+void Scene::addSceneObject(SceneObject* object) {
+	sceneObjects.push_back(object);
+}
+
 Scene::~Scene()
 {
 	for (unsigned int i = 0; i < sceneObjects.size(); i++) {

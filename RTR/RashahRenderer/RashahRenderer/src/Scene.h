@@ -11,6 +11,7 @@ public:
 	~Scene();
 
 	void render(Camera* camera);
+	void addSceneObject(SceneObject* object);
 private:
 	std::vector<SceneObject*> sceneObjects;
 };

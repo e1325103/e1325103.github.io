@@ -63,6 +63,11 @@ void Window::close() {
 	_shouldClose = true;
 }
 
+void Window::refresh() {
+	glfwPollEvents();
+	glfwSwapBuffers(_window);
+}
+
 void Window::setKeyChangedCallback(KeyCallback keyCB) {
 	_keyCB = keyCB;
 }

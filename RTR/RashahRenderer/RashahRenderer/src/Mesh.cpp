@@ -18,5 +18,5 @@ Mesh::~Mesh()
 void Mesh::render(const glm::mat4 &M, const glm::mat4 &V, const glm::mat4 &P) {
 	_vao->bind();
 
-	renderElements();
+	render();
 }

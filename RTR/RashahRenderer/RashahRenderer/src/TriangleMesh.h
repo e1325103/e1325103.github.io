@@ -7,5 +7,5 @@ public:
 	TriangleMesh(std::vector<VBO*> buffers, GLsizei size);
 	virtual ~TriangleMesh();
 protected:
-	virtual void render();
+	virtual void render() const;
 };

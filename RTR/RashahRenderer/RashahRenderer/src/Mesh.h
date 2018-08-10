@@ -18,5 +18,5 @@ protected:
 	std::vector<VBO*> _buffers;
 	size_t _size;
 
-	virtual void renderElements() const = 0;
+	virtual void render() const = 0;
 };

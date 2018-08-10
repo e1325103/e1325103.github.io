@@ -52,6 +52,12 @@ Shader::Shader(std::string file, SHADER_TYPE types[]) {
 	}
 }
 
+Shader::~Shader()
+{
+	glUseProgram(0);
+	glDeleteProgram(_handle);
+}
+
 int Shader::loadShaderFromFile(std::string filename, SHADER_TYPE type) {
 	std::ifstream file(filename + Shader::SHADER_EXTENSION[(int)type]);
 
