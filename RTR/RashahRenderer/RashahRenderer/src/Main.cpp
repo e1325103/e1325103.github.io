@@ -62,7 +62,7 @@ int main()
 
 	SHADER_TYPE types[] = { SHADER_TYPE::VERTEX, SHADER_TYPE::FRAGMENT };
 	Shader* shader = new Shader("..\\shader\\Texture", types);
-
+	shader->setUniform("targetColor", glm::vec3(0.5, 1.0, 1.0));
 	// ***
 
 	while (!window.shouldClose())
@@ -72,7 +72,6 @@ int main()
 
 		shader->bind();
 		scene->render(camera);
-		shader->unbind();
 
 		//scene->render(camera);
 

@@ -109,4 +109,50 @@ void Shader::unbind() {
 	glUseProgram(0);
 }
 
-// TODO add uniform adds
+void Shader::setUniform(std::string name, int i)
+{
+	glProgramUniform1i(_handle, GetUniformLocation(name), i);
+}
+
+void Shader::setUniform(std::string name, unsigned int i)
+{
+	glProgramUniform1ui(_handle, GetUniformLocation(name), i);
+}
+
+void Shader::setUniform(std::string name, float f)
+{
+	glProgramUniform1f(_handle, GetUniformLocation(name), f);
+}
+
+void Shader::setUniform(std::string name, const glm::mat4& mat)
+{
+	glProgramUniformMatrix4fv(_handle, GetUniformLocation(name), 1, GL_FALSE, glm::value_ptr(mat));
+}
+
+void Shader::setUniform(std::string name, const glm::mat3& mat)
+{
+	glProgramUniformMatrix3fv(_handle, GetUniformLocation(name), 1, GL_FALSE, glm::value_ptr(mat));
+}
+
+void Shader::setUniform(std::string name, const glm::vec2& vec)
+{
+	glProgramUniform2f(_handle, GetUniformLocation(name), vec.x, vec.y);
+}
+
+void Shader::setUniform(std::string name, const glm::vec3& vec)
+{
+	glProgramUniform3f(_handle, GetUniformLocation(name), vec.x, vec.y, vec.z);
+}
+
+GLint Shader::GetUniformLocation(std::string& name)
+{
+	const auto location = uniformLocations.find(name);
+	if (location == uniformLocations.end())
+	{
+
+		glUseProgram(_handle);
+		uniformLocations[name] = glGetUniformLocation(_handle, name.c_str());
+		return uniformLocations[name];
+	}
+	return location->second;
+}
