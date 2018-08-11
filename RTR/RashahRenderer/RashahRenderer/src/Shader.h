@@ -23,13 +23,13 @@ public:
 	void bind();
 	void unbind();
 
-	void setUniform(std::string name, int i);
-	void setUniform(std::string name, unsigned int i);
-	void setUniform(std::string name, float f);
-	void setUniform(std::string name, const glm::mat4& mat);
-	void setUniform(std::string name, const glm::mat3& mat);
-	void setUniform(std::string name, const glm::vec2& vec);
-	void setUniform(std::string name, const glm::vec3& vec);
+	void setUniform(const std::string &name, int i);
+	void setUniform(const std::string &name, unsigned int i);
+	void setUniform(const std::string &name, float f);
+	void setUniform(const std::string &name, const glm::mat3 &mat);
+	void setUniform(const std::string &name, const glm::vec2 &vec);
+	void setUniform(const std::string &name, const glm::mat4 &mat);
+	void setUniform(const std::string &name, const glm::vec3 &vec);
 
 private:
 	const static std::string SHADER_EXTENSION[];
@@ -37,7 +37,7 @@ private:
 	GLuint _handle;
 
 	std::map<std::string, GLint> uniformLocations;
-	GLint GetUniformLocation(std::string& name);
+	GLint GetUniformLocation(const std::string &name);
 
 	int loadShaderFromFile(std::string filename, SHADER_TYPE types);
 };

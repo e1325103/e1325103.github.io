@@ -30,6 +30,7 @@
     <ClCompile Include="..\src\VAO.cpp" />
     <ClCompile Include="..\src\VBO.cpp" />
     <ClCompile Include="..\src\Window.cpp" />
+    <ClCompile Include="Texture2D.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Camera.h" />
@@ -40,6 +41,7 @@
     <ClInclude Include="..\src\VAO.h" />
     <ClInclude Include="..\src\VBO.h" />
     <ClInclude Include="..\src\Window.h" />
+    <ClInclude Include="Texture2D.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
