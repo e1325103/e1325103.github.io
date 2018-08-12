@@ -1,0 +1,22 @@
+#pragma once
+
+#include <GL/glew.h>
+
+enum class SAMPLING_MODE
+{
+	NEAREST, LINEAR, BILINEAR, TRILINEAR
+};
+
+enum class WRAP_MODE
+{
+	REPEAT = GL_REPEAT,
+	MIRRORED_REPEAT = GL_MIRRORED_REPEAT,
+	CLAMP_TO_BORDER = GL_CLAMP_TO_BORDER,
+	CLAMP_TO_EDGE = GL_CLAMP_TO_EDGE
+};
+
+struct TextureParams
+{
+	SAMPLING_MODE samplingMode = SAMPLING_MODE::TRILINEAR;
+	WRAP_MODE wrapMode = WRAP_MODE::REPEAT;
+};

@@ -25,12 +25,12 @@
     <ClCompile Include="..\src\Scene.cpp" />
     <ClCompile Include="..\src\SceneObject.cpp" />
     <ClCompile Include="..\src\Shader.cpp" />
+    <ClCompile Include="..\src\Texture2D.cpp" />
     <ClCompile Include="..\src\TriangleMesh.cpp" />
     <ClCompile Include="..\src\TriangleMesh.h" />
     <ClCompile Include="..\src\VAO.cpp" />
     <ClCompile Include="..\src\VBO.cpp" />
     <ClCompile Include="..\src\Window.cpp" />
-    <ClCompile Include="Texture2D.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Camera.h" />
@@ -38,10 +38,11 @@
     <ClInclude Include="..\src\Scene.h" />
     <ClInclude Include="..\src\SceneObject.h" />
     <ClInclude Include="..\src\Shader.h" />
+    <ClInclude Include="..\src\Texture2D.h" />
+    <ClInclude Include="..\src\TextureParams.h" />
     <ClInclude Include="..\src\VAO.h" />
     <ClInclude Include="..\src\VBO.h" />
     <ClInclude Include="..\src\Window.h" />
-    <ClInclude Include="Texture2D.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

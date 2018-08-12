@@ -48,7 +48,7 @@
     <ClCompile Include="..\src\Shader.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="Texture2D.cpp">
+    <ClCompile Include="..\src\Texture2D.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
@@ -77,7 +77,10 @@
     <ClInclude Include="..\src\Shader.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="Texture2D.h">
+    <ClInclude Include="..\src\TextureParams.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Texture2D.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
