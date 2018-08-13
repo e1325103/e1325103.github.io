@@ -2,6 +2,7 @@
 
 Texture2D::Texture2D(TextureParams &params, const std::string &path) {
 	loadFromFile(path);
+	upload();
 }
 
 Texture2D::~Texture2D() {

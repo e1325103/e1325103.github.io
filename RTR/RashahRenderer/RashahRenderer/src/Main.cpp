@@ -1,3 +1,6 @@
+
+#define STB_IMAGE_IMPLEMENTATION
+
 #include <iostream>
 #include <vector>
 
@@ -10,6 +13,7 @@
 #include "SceneObject.h"
 #include "Scene.h"
 #include "Shader.h"
+#include "Texture2D.h"
 
 void handleKeyEvent(KEY k, KEY_ACTION a);
 
@@ -51,9 +55,22 @@ int main()
 	pos.push_back(glm::vec3(1.0f, 1.0f, 0.0f));
 
 	VBO* vbo_pos = new VBO(VBO::BUFFER_TYPE::POSITIONS, (int)pos.size(), &pos[0]);
+
+	std::vector<glm::vec2> uv = std::vector<glm::vec2>();
+
+	uv.push_back(glm::vec2(0.0f, 0.0f));
+	uv.push_back(glm::vec2(1.0f, 0.0f));
+	uv.push_back(glm::vec2(0.0f, 1.0f));
+	uv.push_back(glm::vec2(0.0f, 1.0f));
+	uv.push_back(glm::vec2(1.0f, 0.0f));
+	uv.push_back(glm::vec2(1.0f, 1.0f));
+
+	VBO* vbo_uv = new VBO(VBO::BUFFER_TYPE::UVS, (int)uv.size(), &uv[0]);
+
 	std::vector<VBO*> vbos;
 	vbos.push_back(vbo_pos);
 	vbos.push_back(vbo_ind);
+	vbos.push_back(vbo_uv);
 	Mesh* mesh = new TriangleMesh(vbos, 6);
 	SceneObject* obj = new SceneObject(mesh, glm::mat4(1.0f));
 
@@ -63,6 +80,12 @@ int main()
 	SHADER_TYPE types[] = { SHADER_TYPE::VERTEX, SHADER_TYPE::FRAGMENT };
 	Shader* shader = new Shader("..\\shader\\Texture", types);
 	shader->setUniform("targetColor", glm::vec3(0.5, 1.0, 1.0));
+	shader->setUniform("imgTexture", 1);
+	TextureParams params = TextureParams();
+	params.samplingMode = SAMPLING_MODE::TRILINEAR;
+	params.wrapMode = WRAP_MODE::MIRRORED_REPEAT;
+	Texture2D* texture = new Texture2D(params, "..\\textures\\dubrovnik.png");
+	texture->bind(1);
 	// ***
 
 	while (!window.shouldClose())
